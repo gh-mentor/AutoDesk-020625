@@ -14,6 +14,5 @@ git commit -m "Updated"
 # push changes to remote repository on branch 'main'
 git push origin main
 
-# Echo message to the terminal to indicate that the synchronization is complete
-echo "Synchronization complete"
+
 
