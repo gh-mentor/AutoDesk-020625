@@ -21,6 +21,7 @@ Steps:
 - name: 50 characters, not null
 - price: decimal (10, 2), not null
 - category_id: int, foreign key references categories(id)
+- update_timestamp: datetime, not null, default getdate()
 6) Populate the 'suppliers' table with sample data.
 7) Populate the 'categories' table with sample data.
 8) Populate the 'products' table with sample data.
@@ -65,5 +66,7 @@ CREATE TABLE products (
     name VARCHAR(50) NOT NULL,
     price DECIMAL(10, 2) NOT NULL,
     category_id INT,
+    update_timestamp DATETIME NOT NULL DEFAULT GETDATE(),
     FOREIGN KEY (category_id) REFERENCES categories(id)
 );
+
