@@ -31,3 +31,39 @@ Steps:
 - supplier_name
 */
 
+-- Step 1: Check if the database 'Inventory' exists, if it does exist, drop it and create a new one.
+IF EXISTS (SELECT * FROM sys.databases WHERE name = 'Inventory')
+BEGIN
+    DROP DATABASE Inventory;
+END
+CREATE DATABASE Inventory;
+
+-- Step 2: Set the default database to 'Inventory'.
+USE Inventory;
+
+-- Step 3: Create a 'suppliers' table.
+CREATE TABLE suppliers (
+    id INT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    address VARCHAR(255),
+    city VARCHAR(50) NOT NULL,
+    state CHAR(2) NOT NULL
+);
+
+-- Step 4: Create the 'categories' table with a one-to-many relation to the 'suppliers'.
+CREATE TABLE categories (
+    id INT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    description VARCHAR(255),
+    supplier_id INT,
+    FOREIGN KEY (supplier_id) REFERENCES suppliers(id)
+);
+
+-- Step 5: Create the 'products' table with a one-to-many relation to the 'categories' table.
+CREATE TABLE products (
+    id INT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    category_id INT,
+    FOREIGN KEY (category_id) REFERENCES categories(id)
+);
